@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Angular JS Elements POC</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+  <script src="ae-binding.directive.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/zone.js"></script>
+  <script src="index.js"></script>
+  <script src="index_hello.js"></script>
+  <link rel="stylesheet" href="styles.css"></head>
+  <link rel="stylesheet" href="styles_hello.css"></head>
+</head>
+
+<body>
+
+  <div ng-app="myApp">
+    <hello-world> </hello-world>
+  </div>
+<p>
+  <h3>This demonstrates AngularJS with two @angular/elements packages using a helper binding directive.</h3>
+  <h4>references : <a href="https://remackgeek.github.io/angularJSMultipleElementsPOC/">here</a></h4>
+</p>
+
+  <script>
+    angular.module('myApp', ['ae-bind'])
+      .component('helloWorld', {
+        template: [
+          '<div>',
+          '<div>',
+          '<div><b>My Rating is {{$ctrl.displayRating()}}&nbsp;<button ng-click="$ctrl.maxRating()">Give max rating</button></b></div>',
+          '<div><b><input ng-model="$ctrl.message"></b></div>',
+          ' </div>',
+          ' <p></p>',
+          ' <my-card rating="{{$ctrl.rating}}" message="{{$ctrl.message}}"  ae-binding ></my-card>',
+          ' <ng-hello></ng-hello>',
+          '</div>'
+        ].join(''),
+        controller: function ($scope, $element, $attrs, $timeout) {
+          var ctrl = this;
+          ctrl.rating = 1;
+          ctrl.message = '';
+
+          ctrl.displayRating = function () {
+            return 1 + Number(ctrl.rating);
+          }
+
+          ctrl.maxRating = function () {
+            ctrl.rating = 4;
+          }
+
+        }
+      });
+
+  </script>
+
+</body>
+
+</html>
